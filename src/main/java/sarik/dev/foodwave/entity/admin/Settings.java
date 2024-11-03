@@ -41,7 +41,7 @@ public class Settings {
     // Methods
 
     /**
-     * Updates the setting value.
+     * Updates the settings value.
      */
     public void updateValue(String newValue) {
         this.value = newValue;
