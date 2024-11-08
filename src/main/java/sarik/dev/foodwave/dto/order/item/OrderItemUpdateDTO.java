@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 public class OrderItemUpdateDTO {
 
-    private Long id;
+    private UUID id;
 
     @NotNull
     private UUID dishId;

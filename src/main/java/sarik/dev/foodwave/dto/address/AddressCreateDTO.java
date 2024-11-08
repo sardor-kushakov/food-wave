@@ -40,4 +40,6 @@ public class AddressCreateDTO {
 
     @Pattern(regexp = "^-?\\d{1,3}\\.\\d+$", message = "Invalid longitude format")
     private String longitude;
+
+    private boolean isPrimary; // Qo'shimcha maydon
 }

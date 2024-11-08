@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: FoodWave
+  server:
+    port: 8080
+  datasource:
+    url: jdbc:postgresql://localhost:5432/food_wave
+    username: postgres
+    password: 2007
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+otp:
+  expiration:
+

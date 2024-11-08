@@ -34,4 +34,5 @@ public class UserCreateDTO {
     private Gender gender;
     private UserRole userRole;
     private String profilePictureUrl;
+    private boolean isActive = true;
 }

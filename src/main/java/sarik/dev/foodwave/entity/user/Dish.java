@@ -10,6 +10,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import sarik.dev.foodwave.dto.dish.DishDTO;
 import sarik.dev.foodwave.entity.admin.Category;
 import sarik.dev.foodwave.entity.admin.Ingredient;
 import sarik.dev.foodwave.enums.user.DishType;
@@ -90,6 +91,30 @@ public class Dish {
     private Set<Review> reviews = new HashSet<>();
 
     // Methods
+
+    /**
+     * Converts a DishDTO to a Dish entity.
+     *
+     * @param dishDTO the DishDTO to convert
+     * @return the converted Dish entity
+     */
+    public static Dish fromDTO(DishDTO dishDTO) {
+        if (dishDTO == null) {
+            return null; // or throw an exception if necessary
+        }
+
+        return Dish.builder()
+                .id(dishDTO.getId())
+                .name(dishDTO.getName())
+                .description(dishDTO.getDescription())
+                .price(dishDTO.getPrice())
+                .imageUrl(dishDTO.getImageUrl())
+                .dishType(dishDTO.getDishType())
+                .isAvailable(dishDTO.isAvailable())
+                .createdAt(dishDTO.getCreatedAt())
+                .updatedAt(dishDTO.getUpdatedAt())
+                .build();
+    }
 
     /**
      * Adds an ingredient to the dish.

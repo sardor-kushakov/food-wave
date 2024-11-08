@@ -73,6 +73,15 @@ public class Order {
     }
 
     /**
+     * Removes an item from the order.
+     */
+    public void removeItem(OrderItem item) {
+        items.remove(item);
+        item.setOrder(null); // Olishni to'g'rilash
+        recalculateTotalPrice();
+    }
+
+    /**
      * Recalculates the total price of all items in the order.
      */
     public void recalculateTotalPrice() {

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
 @Table(name = "order_items")
@@ -17,8 +18,8 @@ import java.math.BigDecimal;
 public class OrderItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "order_id", nullable = false)
@@ -42,6 +43,20 @@ public class OrderItem {
      * Calculates the total price based on quantity and dish price.
      */
     public void calculateTotalPrice() {
-        this.totalPrice = dish.getPrice().multiply(BigDecimal.valueOf(quantity));
+        if (dish != null) {
+            this.totalPrice = dish.getPrice().multiply(BigDecimal.valueOf(quantity));
+        } else {
+            this.totalPrice = BigDecimal.ZERO; // Agar dish mavjud bo'lmasa, 0 qilib qo'yamiz
+        }
+    }
+
+    /**
+     * Gets the total price of the order item.
+     */
+    public BigDecimal getTotalPrice() {
+        if (totalPrice == null) {
+            calculateTotalPrice(); // Agar narx hali hisoblanmagan bo'lsa, hisoblash
+        }
+        return totalPrice;
     }
 }

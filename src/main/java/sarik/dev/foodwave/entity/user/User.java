@@ -70,7 +70,7 @@ public class User {
     private String profilePictureUrl;
 
     @Column(name = "is_active", nullable = false)
-    private boolean isActive = true;
+    private boolean isActive = false;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

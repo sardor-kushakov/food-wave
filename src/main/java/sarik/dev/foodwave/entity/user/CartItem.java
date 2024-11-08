@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
 @Table(name = "cart_items")
@@ -17,8 +18,8 @@ import java.math.BigDecimal;
 public class CartItem {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "cart_id", nullable = false)
@@ -39,9 +40,20 @@ public class CartItem {
     // Methods
 
     /**
+     * Gets the product (dish) associated with this cart item.
+     */
+    public Dish getProduct() {
+        return this.dish;
+    }
+
+    /**
      * Calculates the total price based on quantity and dish price.
      */
     public void calculateTotalPrice() {
-        this.totalPrice = dish.getPrice().multiply(BigDecimal.valueOf(quantity));
+        if (dish != null) {
+            this.totalPrice = dish.getPrice().multiply(BigDecimal.valueOf(quantity));
+        } else {
+            this.totalPrice = BigDecimal.ZERO; // Agar dish mavjud bo'lmasa, 0 qilib qo'ying
+        }
     }
 }
